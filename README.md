@@ -10,16 +10,9 @@
 
 #### Solution
 > * Use [**Createwindow function**](https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx) function with Windows Type
-> * In Callback WndProc, add Case[WM_SYSCOMMAND](https://msdn.microsoft.com/en-us/library/windows/desktop/ms646360(v=vs.85).aspx  ) to control the MAXIMIZE button(including all title buttons).
-> * We can't transfer unicode string to LPCTSTR, so we can use [TEXT()](https://msdn.microsoft.com/en-us/library/dd374074(VS.85).aspx  ) to do it. We can also set the Character Set to Multi-Byte Character set. Properties->Configuration Properties->General
+> * In Callback WndProc, add Case[**WM_SYSCOMMAND**](https://msdn.microsoft.com/en-us/library/windows/desktop/ms646360(v=vs.85).aspx  ) to control the MAXIMIZE button(including all title buttons).
+> * We can't transfer unicode string to LPCTSTR, so we can use [**TEXT()**](https://msdn.microsoft.com/en-us/library/dd374074(VS.85).aspx  ) to do it. We can also set the Character Set to Multi-Byte Character set. Properties->Configuration Properties->General
 > * [**Exception**](http://www.cplusplus.com/doc/tutorial/exceptions/ ) and [**Assert**](http://www.cplusplus.com/reference/cassert/assert/ )
-
-[Createwindow MSDN] : https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx
-[WM_SYSCOMMAND MSDN]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646360(v=vs.85).aspx  
-[TEXT MSDN]: https://msdn.microsoft.com/en-us/library/dd374074(VS.85).aspx  
-[Exception details]: http://www.cplusplus.com/doc/tutorial/exceptions/  
-[Assert details]: http://www.cplusplus.com/reference/cassert/assert/  
-[More information]: https://github.com/CanTinGit/CMP502/blob/master/Lab%201%20Framework/Tutorial1.doc  
 ---
 
 ### 2. Get start with Direct API
