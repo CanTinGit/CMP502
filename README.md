@@ -6,7 +6,7 @@
 > * Add in functionality that will add / remove this window border when fullscreen or windowed mode is selected
 > * Use MessageBox to show user the error information
 > * Search information about Exception and Assert
-> * [More](ttps://github.com/CanTinGit/CMP502/blob/master/Lab%201%20Framework/Tutorial1.doc): download the tutorial document
+> * [More](https://github.com/CanTinGit/CMP502/blob/master/Lab%201%20Framework/Tutorial1.doc): download the tutorial document
 
 #### Solution
 > * Use [**Createwindow function**](https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx) function with Windows Type
