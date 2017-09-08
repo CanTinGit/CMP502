@@ -1,5 +1,4 @@
 ## Graphics Programming(labs of CMP502)
------
 ### 1. Be familiar with Windows API
 #### Task
 > * At first the windows is blank and bordless. Make it normal(with bord and title)
