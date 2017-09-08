@@ -49,7 +49,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 		{
 			if (e == 1)
 			{
-				int tempResult = MessageBox(NULL, TEXT("Can't create system class"), TEXT("Error"), MB_RETRYCANCEL);
+				int tempResult = MessageBox(NULL, L"Can't create system class", L"Error", MB_RETRYCANCEL);
 				switch (tempResult)
 				{
 				case IDRETRY: break;
