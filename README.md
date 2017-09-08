@@ -14,7 +14,7 @@
 > * We can't transfer unicode string to LPCTSTR, so we can use [TEXT()][TEXT MSDN] to do it. We can also set the Character Set to Multi-Byte Character set. Properties->Configuration Properties->General
 > * [**Exception**][Exception details] and [**Assert**][Assert details]
 
-[Createwindow MSDN]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx  
+[Createwindow MSDN] : https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx
 [WM_SYSCOMMAND MSDN]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646360(v=vs.85).aspx  
 [TEXT MSDN]: https://msdn.microsoft.com/en-us/library/dd374074(VS.85).aspx  
 [Exception details]: http://www.cplusplus.com/doc/tutorial/exceptions/  
