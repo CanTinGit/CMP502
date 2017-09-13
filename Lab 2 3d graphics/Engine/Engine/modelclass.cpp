@@ -234,6 +234,8 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 		}
 	}
 	indices[m_indexCount - 1] = 1;
+	indices[m_indexCount - 2] = 0;
+	indices[m_indexCount - 3] = m_slides;
 
 
 	// Set up the description of the static vertex buffer.
