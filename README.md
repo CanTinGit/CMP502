@@ -16,7 +16,14 @@
 
 ### 2. Get start with Direct API
 #### Task
+> * Draw a Square and Star
+> * Draw a circle and we can change the slides of circle to make it better
+> * Move the Camera
 
+#### Solution
+> * When you want to draw a shape. First thing is to set the positions of Vertex(the point in space). Then Filled triangular area described by 3 Vertices. Then you can use  Triangle to get the shape you want.
+> * To draw a circle, you need to use math techology(using the parametric equation of a circle). 
+> * In the CameraClass.cpp, you can see SetPosition(), and SetRotation(float x, float y, float z). Use them to move the Camera. Watch out, if you set the Rotation first, the X,Y,Z maybe change.
 
 
 
