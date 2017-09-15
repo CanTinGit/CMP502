@@ -172,3 +172,8 @@ bool GraphicsClass::Render()
 
 	return true;
 }
+
+void GraphicsClass::MoveCamera(float x, float y, float z) {
+	 
+	m_Camera->SetPosition(m_Camera->m_positionX + x, m_Camera->m_positionY + y, m_Camera->m_positionZ + z);
+}

@@ -69,7 +69,7 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
     D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
-	int m_slides = 32;
+	int m_slides = 64;
 	float radius = 2.0f;
 	double angle = 360 / m_slides;
 	// Set the number of vertices in the vertex array.
@@ -157,33 +157,14 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	colorX = 0.0f;
 	colorY = 0.0f;
 	colorZ = 0.0f;
-	for (int i = 0; i < m_vertexCount-1; i++) 
+	for (int i = 1; i <= m_slides; i++) 
 	{
-		float tempAngle = i * angle;
-		float X = radius * cos(tempAngle*PI / 180);
-		float Y = radius * sin(tempAngle*PI / 180);
-		if (tempAngle == 90)
-		{
-			X = 0;
-		}
-
-		if (tempAngle == 270)
-		{
-			X = 0;
-		}
-		if (tempAngle == 0)
-		{
-			Y = 0;
-		}
-		if (tempAngle == 180)
-		{
-			Y = 0;
-		}
-		
+		float X = radius * cos(i* 2 * PI / m_slides);
+		float Y = radius * sin(i * 2 * PI / m_slides);
 		colorX = colorX + 2 * tempColor;
 		colorZ = colorZ + 2 * tempColor;
-		vertices[i+1].position = D3DXVECTOR3(X, Y, 0.0f);
-		vertices[i+1].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[i].position = D3DXVECTOR3(X, Y, 0.0f);
+		vertices[i].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
 	}
 
 	// Load the index array with data.
@@ -222,16 +203,12 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	//circle
 	int offset = 1;
 	indices[0] = 1;
-	for (int i = 1; i < m_indexCount-2; i++)
+	for (int i = 0; i < m_slides; i++)
 	{
-		int temp = i % 3;
-		if(temp == 1)
-		{
-			indices[i] = 0;
-			indices[i + 1] = offset + 1;
-			indices[i + 2] = offset + 1;
-			offset++;
-		}
+		indices[3*i] = 0;
+		indices[3*i + 1] = i + 2;
+		indices[3*i + 2] = i + 1;
+		offset++;
 	}
 	indices[m_indexCount - 1] = 1;
 	indices[m_indexCount - 2] = 0;
