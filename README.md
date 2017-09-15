@@ -24,7 +24,8 @@
 > * When you want to draw a shape. First thing is to set the positions of Vertex(the point in space). Then Filled triangular area described by 3 Vertices. Then you can use  Triangle to get the shape you want.
 > * To draw a circle, you need to use math techology(using the parametric equation of a circle). 
 > * In the CameraClass.cpp, you can see SetPosition(), and SetRotation(float x, float y, float z). Use them to move the Camera. Watch out, if you set the Rotation first, the X,Y,Z maybe change.
-> * The input handle is in systemclass. But the camera is created in Graphics class, so if you want to control the camera, you can make the *m_camera public or just write a new function in Graphics.cpp. (Here is the [**Virtual key**](https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx)
+> * The input handle is in systemclass. But the camera is created in Graphics class, so if you want to control the camera, you can make the *m_camera public or just write a new function in Graphics.cpp. (Here is the [**Virtual key**](https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx))  
+
 **When you change the .cpp, don't forget change .h at first** 
 
 
