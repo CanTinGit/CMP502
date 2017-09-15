@@ -174,6 +174,10 @@ bool GraphicsClass::Render()
 }
 
 void GraphicsClass::MoveCamera(float x, float y, float z) {
-	 
+
 	m_Camera->SetPosition(m_Camera->m_positionX + x, m_Camera->m_positionY + y, m_Camera->m_positionZ + z);
+}
+void GraphicsClass::RotateCamera(float x, float y, float z) {
+
+	m_Camera->SetRotation(x, y, z);
 }

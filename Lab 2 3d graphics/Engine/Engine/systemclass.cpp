@@ -186,6 +186,14 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 				m_Graphics->MoveCamera(0, -1, 0);
 			}
 
+			if (wparam == 0x50) {
+				m_Graphics->RotateCamera(0, 90, 0);
+			}
+
+			if (wparam == 0x52) {
+				m_Graphics->RotateCamera(0, 0, 0);
+			}
+
 			// If a key is pressed send it to the input object so it can record that state.
 			m_Input->KeyDown((unsigned int)wparam);
 			return 0;

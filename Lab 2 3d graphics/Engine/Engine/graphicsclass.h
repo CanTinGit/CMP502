@@ -37,6 +37,7 @@ public:
 	void Shutdown();
 	bool Frame();
 	void MoveCamera(float,float,float);
+	void RotateCamera(float, float, float);
 
 private:
 	bool Render();
