@@ -156,6 +156,44 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 		// Check if a key has been pressed on the keyboard.
 		case WM_KEYDOWN:
 		{
+			//click W to forward
+			if (wparam == 0x57) {
+				m_Graphics->MoveCamera(0, 0, 1);
+			}
+
+			//click S to back
+			if (wparam == 0x53) {
+				m_Graphics->MoveCamera(0, 0, -1);
+			}
+
+			//click A to move left
+			if (wparam == 0x41) {
+				m_Graphics->MoveCamera(-1, 0, 0);
+			}
+
+			//click D to move right
+			if (wparam == 0x44) {
+				m_Graphics->MoveCamera(1, 0, 0);
+			}
+
+			//click E to move up
+			if (wparam == 0x45) {
+				m_Graphics->MoveCamera(0, 1, 0);
+			}
+
+			//click Q to move down
+			if (wparam == 0x51) {
+				m_Graphics->MoveCamera(0, -1, 0);
+			}
+
+			if (wparam == 0x50) {
+				m_Graphics->RotateCamera(0, 90, 0);
+			}
+
+			if (wparam == 0x52) {
+				m_Graphics->RotateCamera(0, 0, 0);
+			}
+
 			// If a key is pressed send it to the input object so it can record that state.
 			m_Input->KeyDown((unsigned int)wparam);
 			return 0;
