@@ -18,5 +18,32 @@ struct PixelInputType
 ////////////////////////////////////////////////////////////////////////////////
 float4 ColorPixelShader(PixelInputType input) : SV_TARGET
 {
+	if(input.position.x > 250 && input.position.x < 400 && input.position.y > 70 && input.position.y < 300)
+	{
+		input.color.x = (input.position.x - 250) / 150;
+		input.color.y = (input.position.y - 70) / 230;
+		input.color.z = 1.0f;
+	}
+
+	if(input.position.x > 400 && input.position.x < 550 && input.position.y > 70 && input.position.y < 300)
+	{
+		input.color.x = (550 - input.position.x) / 150;
+		input.color.y = (input.position.y - 70) / 230;
+		input.color.z = input.position.x / input.position.y;
+	}
+
+	if(input.position.x > 180 && input.position.x < 400 && input.position.y > 300 && input.position.y < 530)
+	{
+		input.color.x = (input.position.x - 180) / 220;
+		input.color.y = (530 - input.position.y) / 230;
+		input.color.z = input.position.x / input.position.y;
+	}
+
+	if(input.position.x > 400 && input.position.x < 620 && input.position.y > 300 && input.position.y < 530)
+	{
+		input.color.x = (620 - input.position.x) / 220;
+		input.color.y = (530 - input.position.y) / 230;
+		input.color.z = input.position.x / input.position.y;
+	}
     return input.color;
 }
