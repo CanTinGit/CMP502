@@ -52,10 +52,12 @@ PixelInputType LightVertexShader(VertexInputType input)
     output.position = mul(input.position, worldMatrix);
     output.position = mul(output.position, viewMatrix);
     output.position = mul(output.position, projectionMatrix);
-    
+    output.position.x += sin(delta*30);
+	output.position.y += cos(delta*30);
+	output.position.w += delta*20;
 	// Store the texture coordinates for the pixel shader.
 	output.tex = input.tex;
-    
+
 	// Calculate the normal vector against the world matrix only.
     output.normal = mul(input.normal, (float3x3)worldMatrix);
 	
