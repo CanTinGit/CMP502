@@ -11,6 +11,7 @@
 #include <d3d11.h>
 #include <d3dx10math.h>
 #include <fstream>
+#include "textureclass.h"
 using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +42,7 @@ public:
 	bool Initialize(ID3D11Device*, char*, WCHAR*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
+	ID3D11ShaderResourceView* GetTexture();
 
 	int GetIndexCount();
 
@@ -53,11 +55,14 @@ private:
 
 	bool LoadModel(char*);
 	void ReleaseModel();
+	bool LoadTexture(ID3D11Device* device, WCHAR* filename);
+	void ReleaseTexture();
 
 private:
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 	ModelType* m_model;
+	TextureClass* m_Texture;
 };
 
 #endif

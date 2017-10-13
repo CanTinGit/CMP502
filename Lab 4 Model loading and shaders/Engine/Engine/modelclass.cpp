@@ -9,6 +9,7 @@ ModelClass::ModelClass()
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
 	m_model = 0;
+	m_Texture = 0;
 }
 
 
@@ -41,6 +42,13 @@ bool ModelClass::Initialize(ID3D11Device* device, char* modelFilename, WCHAR* te
 		return false;
 	}
 
+	//// Load the texture for this model.
+	result = LoadTexture(device, textureFilename);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -53,6 +61,8 @@ void ModelClass::Shutdown()
 
 	// Release the model data.
 	ReleaseModel();
+
+	ReleaseTexture();
 
 	return;
 }
@@ -268,6 +278,42 @@ void ModelClass::ReleaseModel()
 	{
 		delete [] m_model;
 		m_model = 0;
+	}
+
+	return;
+}
+
+bool ModelClass::LoadTexture(ID3D11Device* device, WCHAR* filename)
+{
+	bool result;
+	m_Texture = new TextureClass;
+	if (!m_Texture)
+	{
+		return false;
+	}
+
+	result = m_Texture->Initialize(device, filename);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+ID3D11ShaderResourceView* ModelClass::GetTexture()
+{
+	return m_Texture->GetTexture();
+}
+
+
+void ModelClass::ReleaseTexture()
+{
+	if (m_Texture)
+	{
+		m_Texture->Shutdown();
+		delete m_Texture;
+		m_Texture = 0;
 	}
 
 	return;
