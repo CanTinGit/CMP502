@@ -454,7 +454,7 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, D
 	deviceContext->Unmap(m_variableBuffer, 0);
 
 	// Set the position of the variable constant buffer in the vertex shader.
-	bufferNumber = 1;
+	bufferNumber = 2;
 
 	// Now set the variable constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_variableBuffer);
