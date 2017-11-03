@@ -13,6 +13,9 @@
 #include "modelclass.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
+#include "rendertextureclass.h"
+#include "debugwindowclass.h"
+#include "textureshaderclass.h"
 
 
 /////////////
@@ -42,11 +45,18 @@ private:
 	bool Render(float, float);
 
 private:
+	bool RenderToTexture();
+	bool RenderScene();
+
+private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
 	ModelClass* m_Model;
 	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
+	DebugWindowClass* m_DebugWindow;
+	RenderTextureClass* m_RenderTexture;
+	TextureShaderClass* m_TextureShader;
 };
 
 #endif
