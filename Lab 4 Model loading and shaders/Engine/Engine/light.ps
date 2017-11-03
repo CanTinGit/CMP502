@@ -61,7 +61,6 @@ float4 LightPixelShader(PixelInputType input) : SV_TARGET
     {
         // Determine the final diffuse color based on the diffuse color and the amount of light intensity.
         color += (diffuseColor * lightIntensity);
-		//color += (float4(1.0,0.0,0.0,0.0) * lightIntensity);
 		color = saturate(color);
 		reflection = normalize(2 * lightIntensity * input.normal - lightDir); 
 		specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
@@ -70,8 +69,8 @@ float4 LightPixelShader(PixelInputType input) : SV_TARGET
 
     // Determine the final amount of diffuse color based on the diffuse color combined with the light intensity.
     //color = saturate(diffuseColor * lightIntensity);
+	color = color * textureColor;
 	color = saturate (color+specular);
-	color += specular;
 
     return color;
 }
