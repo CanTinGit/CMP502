@@ -158,7 +158,7 @@ bool GraphicsClass::Frame()
 	}
 
 	// Update the delta variable each frame. (keep this between 0 and 1)
-	delta += 0.001;
+	delta += 0.001f;
 	if(delta >1.0f)
 	{
 		delta -=1.0f;
