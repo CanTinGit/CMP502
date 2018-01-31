@@ -28,6 +28,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 	System->Shutdown();
 	delete System;
 	System = 0;
-
 	return 0;
 }

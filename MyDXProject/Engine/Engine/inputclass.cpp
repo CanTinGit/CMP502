@@ -401,3 +401,20 @@ bool InputClass::IsBPressed()
 	time = 0;
 	return false;
 }
+
+bool InputClass::IsXPressed()
+{
+	static int time = 0;
+	if (m_keyboardState[DIK_X] & 0x80)
+	{
+		time++;
+		if (time == 1)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	time = 0;
+	return false;
+}

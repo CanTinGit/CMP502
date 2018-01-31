@@ -447,14 +447,14 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, D
 	dataPtr3 = (VariableBufferType*)mappedResource.pData;
 
 	// Copy the variablethe constant buffer.
-	dataPtr3->delta = deltavalue;
+	dataPtr3->delta = 3;
 	dataPtr3->padding =lightDirection; //this is just padding so this data isnt used.
 
 	// Unlock the variable constant buffer.
 	deviceContext->Unmap(m_variableBuffer, 0);
 
 	// Set the position of the variable constant buffer in the vertex shader.
-	bufferNumber = 2;
+	bufferNumber = 1;
 
 	// Now set the variable constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_variableBuffer);

@@ -50,6 +50,8 @@ public:
 	void ShowMiniMap();
 	void ChangeLightColor(float, float, int);
 	void ChangeLightColorBack();
+	void ChangeWorldMatrix();
+
 private:
 	bool RenderToTexture();
 	bool RenderScene(float);
@@ -77,6 +79,7 @@ private:
 
 	bool isShowingFps;
 	bool isShowingMiniMap;
+	bool isChangedMatrix;
 };
 
 #endif

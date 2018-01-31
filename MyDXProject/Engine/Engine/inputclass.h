@@ -55,7 +55,7 @@ public:
 	bool IsYPressed();
 	bool IsUPressed();
 	bool IsBPressed();
-	//bool IsPPressed();
+	bool IsXPressed();
 private:
 	bool ReadKeyboard();
 	bool ReadMouse();

@@ -297,11 +297,17 @@ bool SystemClass::Frame()
 		m_Graphics->ChangeLightColor(0.1f, 5.0f, 3);
 	}
 
+	//Change the light to white
 	if (m_Input->IsBPressed() == true)
 	{
 		m_Graphics->ChangeLightColorBack();
 	}
 
+	//Change world Matrix
+	if (m_Input->IsXPressed() == true)
+	{
+		m_Graphics->ChangeWorldMatrix();
+	}
 	return true;
 }
 

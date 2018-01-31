@@ -28,6 +28,7 @@ GraphicsClass::GraphicsClass()
 
 	isShowingFps = false;
 	isShowingMiniMap = false;
+	isChangedMatrix = false;
 }
 
 
@@ -500,11 +501,20 @@ bool GraphicsClass::RenderScene(float delta)
 	}
 
 	//D3DXMatrixRotationY(&worldMatrix, rotation);
-	D3DXMatrixRotationY(&worldMatrix, rotation);
-	//D3DXMATRIX cubeROT, cubeMOVE;
-	//D3DXMatrixRotationY(&cubeROT, rotation);
-	//D3DXMatrixRotationX(&cubeMOVE, rotation);
-	//worldMatrix = cubeROT * cubeMOVE;
+
+	
+	D3DXMATRIX cubeROT, cubeMOVE;
+	D3DXMatrixRotationY(&cubeROT, rotation);
+	D3DXMatrixRotationX(&cubeMOVE, rotation);
+	
+	if (isChangedMatrix == true)
+	{
+		worldMatrix = worldMatrix * cubeROT * cubeMOVE;
+	}
+	else
+	{
+		D3DXMatrixRotationY(&worldMatrix, rotation);
+	}
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_Model->Render(m_D3D -> GetDeviceContext());
 
@@ -594,4 +604,16 @@ void GraphicsClass::ChangeLightColor(float speed, float max, int flag)
 void GraphicsClass::ChangeLightColorBack()
 {
 	m_Light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
+void GraphicsClass::ChangeWorldMatrix()
+{
+	if (isChangedMatrix == true)
+	{
+		isChangedMatrix = false;
+	}
+	else
+	{
+		isChangedMatrix = true;
+	}
 }
