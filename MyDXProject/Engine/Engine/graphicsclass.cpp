@@ -29,6 +29,10 @@ GraphicsClass::GraphicsClass()
 	isShowingFps = false;
 	isShowingMiniMap = false;
 	isChangedMatrix = false;
+
+	//Terrain
+	m_Terrain = 0;
+	m_TerrainShader = 0;
 }
 
 
@@ -209,6 +213,35 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		MessageBox(hwnd, L"Could not initialize the texture shader object.", L"Error", MB_OK);
 		return false;
 	}
+
+	// Create the Terrain object
+	m_Terrain = new TerrainClass();
+	if (!m_Terrain)
+	{
+		return false;
+	}
+
+	result = m_Terrain->InitializeTerrain(m_D3D->GetDevice(), 128,128);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the terrain object.", L"Error", MB_OK);
+		return false;
+	}
+
+	// Create the terrain shader object
+	m_TerrainShader = new TerrainShaderClass();
+	if (!m_TerrainShader)
+	{
+		return false;
+	}
+
+	result = m_TerrainShader->Initialize(m_D3D->GetDevice(), hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the terrain shader object.", L"Error", MB_OK);
+		return false;
+	}
+
 	return true;
 }
 
@@ -388,6 +421,13 @@ bool GraphicsClass::Render(float rotation, float deltavalue)
 	// Turn on the alpha blending before rendering the text.
 	m_D3D->TurnOnAlphaBlending();
 
+	//Render the terrain
+	m_Terrain->Render(m_D3D->GetDeviceContext());
+
+	//Render the terrain with terrain shader
+	result = m_TerrainShader->Render(m_D3D->GetDeviceContext(), m_Terrain->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+		m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(), m_Light->GetDirection());
+
 	// Put the particle system vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_ParticleSystem->Render(m_D3D->GetDeviceContext());
 
@@ -422,24 +462,6 @@ bool GraphicsClass::Render(float rotation, float deltavalue)
 			return false;
 		}
 	}
-	
-	// Rotate the world matrix by the rotation value so that the triangle will spin.
-	//D3DXMatrixRotationY(&worldMatrix, rotation);
-	///*D3DXMATRIX cubeROT, cubeMOVE;
-	//D3DXMatrixRotationY(&cubeROT, rotation);
-	//D3DXMatrixRotationX(&cubeMOVE, rotation);
-	//worldMatrix = cubeROT * cubeMOVE;*/
-	//
-	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	//m_Model->Render(m_D3D->GetDeviceContext());
-
-	// Render the model using the light shader.
-	//result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, 
-	//							    m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(), deltavalue, m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower(),m_Model->GetTexture());
-	//if(!result)
-	//{
-	//	return false;
-	//}
 
 	// Turn off alpha blending after rendering the text.
 	m_D3D->TurnOffAlphaBlending();
@@ -616,4 +638,9 @@ void GraphicsClass::ChangeWorldMatrix()
 	{
 		isChangedMatrix = true;
 	}
+}
+
+void GraphicsClass::GenerateTerrain()
+{
+	m_Terrain->GenerateHeightMap(m_D3D->GetDevice(), true);
 }

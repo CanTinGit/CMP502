@@ -19,6 +19,8 @@
 #include "textclass.h"
 #include "particleshaderclass.h"
 #include "particlesystemclass.h"
+#include "terrainclass.h"
+#include "terrainshaderclass.h"
 
 
 /////////////
@@ -51,6 +53,7 @@ public:
 	void ChangeLightColor(float, float, int);
 	void ChangeLightColorBack();
 	void ChangeWorldMatrix();
+	void GenerateTerrain();
 
 private:
 	bool RenderToTexture();
@@ -62,6 +65,9 @@ private:
 	ModelClass* m_Model;
 	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
+	TerrainClass* m_Terrain;
+	TerrainShaderClass *m_TerrainShader;
+	
 
 	DebugWindowClass* m_DebugWindow;
 	RenderTextureClass* m_RenderTexture;

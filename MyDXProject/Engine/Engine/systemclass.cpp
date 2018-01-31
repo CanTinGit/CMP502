@@ -185,19 +185,6 @@ void SystemClass::Run()
 	done = false;
 	while(!done)
 	{
-		// Handle the windows messages.
-		//if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		//{
-		//	TranslateMessage(&msg);
-		//	DispatchMessage(&msg);
-		//}
-
-		// If windows signals to end the application then exit out.
-		//if(msg.message == WM_QUIT)
-		//{
-		//	done = true;
-		//}
-		// Otherwise do the frame processing.
 		result = Frame();
 		if(!result)
 		{
@@ -307,6 +294,11 @@ bool SystemClass::Frame()
 	if (m_Input->IsXPressed() == true)
 	{
 		m_Graphics->ChangeWorldMatrix();
+	}
+
+	if (m_Input->IsSpacePressed() == true)
+	{
+		m_Graphics->GenerateTerrain();
 	}
 	return true;
 }

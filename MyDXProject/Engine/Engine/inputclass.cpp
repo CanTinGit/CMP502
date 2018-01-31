@@ -418,3 +418,20 @@ bool InputClass::IsXPressed()
 	time = 0;
 	return false;
 }
+
+bool InputClass::IsSpacePressed()
+{
+	static int time = 0;
+	if (m_keyboardState[DIK_SPACE] & 0x80)
+	{
+		time++;
+		if (time == 1)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	time = 0;
+	return false;
+}
