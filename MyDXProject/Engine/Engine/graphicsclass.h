@@ -21,6 +21,7 @@
 #include "particlesystemclass.h"
 #include "terrainclass.h"
 #include "terrainshaderclass.h"
+#include "inputclass.h"
 
 
 /////////////
@@ -42,7 +43,7 @@ public:
 	GraphicsClass(const GraphicsClass&);
 	~GraphicsClass();
 
-	bool Initialize(int, int, HWND);
+	bool Initialize(int, int, HWND, HINSTANCE);
 	void Shutdown();
 	bool Frame(int, int, float);
 	bool Render(float, float);
@@ -58,6 +59,7 @@ public:
 private:
 	bool RenderToTexture();
 	bool RenderScene(float);
+	bool HandleInput();
 
 private:
 	D3DClass* m_D3D;
@@ -67,6 +69,7 @@ private:
 	LightClass* m_Light;
 	TerrainClass* m_Terrain;
 	TerrainShaderClass *m_TerrainShader;
+	InputClass *m_Input;
 	
 
 	DebugWindowClass* m_DebugWindow;

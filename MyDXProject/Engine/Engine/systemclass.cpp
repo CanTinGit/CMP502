@@ -39,19 +39,19 @@ bool SystemClass::Initialize()
 	InitializeWindows(screenWidth, screenHeight);
 
 	// Create the input object.  This object will be used to handle reading the keyboard input from the user.
-	m_Input = new InputClass;
-	if(!m_Input)
-	{
-		return false;
-	}
+	//m_Input = new InputClass;
+	//if(!m_Input)
+	//{
+	//	return false;
+	//}
 
-	// Initialize the input object.
-	result = m_Input->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight);
-	if (!result) 
-	{
-		MessageBox(m_hwnd, L"Could not initialize the input object.", L"Error", MB_OK);
-		return false;
-	}
+	//// Initialize the input object.
+	//result = m_Input->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight);
+	//if (!result) 
+	//{
+	//	MessageBox(m_hwnd, L"Could not initialize the input object.", L"Error", MB_OK);
+	//	return false;
+	//}
 	// Create the graphics object.  This object will handle rendering all the graphics for this application.
 	m_Graphics = new GraphicsClass;
 	if(!m_Graphics)
@@ -60,7 +60,7 @@ bool SystemClass::Initialize()
 	}
 
 	// Initialize the graphics object.
-	result = m_Graphics->Initialize(screenWidth, screenHeight, m_hwnd);
+	result = m_Graphics->Initialize(screenWidth, screenHeight, m_hwnd,m_hinstance);
 	if(!result)
 	{
 		return false;
@@ -150,13 +150,13 @@ void SystemClass::Shutdown()
 		m_Graphics = 0;
 	}
 
-	// Release the input object.
-	if (m_Input)
-	{
-		m_Input->Shutdown();
-		delete m_Input;
-		m_Input = 0;
-	}
+	//// Release the input object.
+	//if (m_Input)
+	//{
+	//	m_Input->Shutdown();
+	//	delete m_Input;
+	//	m_Input = 0;
+	//}
 
 	// Release the sound object
 	if (m_Sound)
@@ -185,14 +185,26 @@ void SystemClass::Run()
 	done = false;
 	while(!done)
 	{
-		result = Frame();
-		if(!result)
+		// Handle the windows messages.
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		// If windows signals to end the application then exit out.
+		if (msg.message == WM_QUIT)
 		{
 			done = true;
 		}
-		if (m_Input->IsEscapePressed() == true)
+		else
 		{
-			done = true;
+			// Otherwise do the frame processing.
+			result = Frame();
+			if (!result)
+			{
+				done = true;
+			}
 		}
 	}
 
@@ -210,11 +222,11 @@ bool SystemClass::Frame()
 	m_Cpu->Frame();
 
 	// Check if the user pressed escape and wants to exit the application.
-	result = m_Input->Frame();
-	if (!result)
-	{
-		return false;
-	}
+	//result = m_Input->Frame();
+	//if (!result)
+	//{
+	//	return false;
+	//}
 
 	// Do the frame processing for the graphics object.
 	result = m_Graphics->Frame(m_Fps->GetFps(), m_Cpu->GetCpuPercentage(), m_Timer->GetTime());
@@ -223,83 +235,7 @@ bool SystemClass::Frame()
 		return false;
 	}
 
-	//Check Input and update Camera position
-	if (m_Input -> IsWPressed() == true)
-	{
-		m_Graphics->CameraMove(0.3f, 2);
-	}
-
-	if (m_Input->IsSPressed() == true)
-	{
-		m_Graphics->CameraMove(-0.3f, 2);
-	}
-
-	if (m_Input->IsAPressed() == true)
-	{
-		m_Graphics->CameraMove(-0.3f, 1);
-	}
-
-	if (m_Input->IsDPressed() == true)
-	{
-		m_Graphics->CameraMove(0.3f, 1);
-	}
-
-	//Check Input and control the Particle system
-	if (m_Input->IsPPressed() == true)
-	{
-		m_Graphics->OpenOrCloseParticle();
-	}
-
-	//Check Input and control the Sound system
-	if (m_Input->IsRPressed() == true)
-	{
-		m_Sound->PauseAndPlay();
-	}
-
-	//Check Input and control the FPS
-	if (m_Input->IsLPressed() == true)
-	{
-		m_Graphics->OpendOrCloseFPS();
-	}
-
-	//Control the MiniMap
-	if (m_Input->IsMPressed() == true)
-	{
-		m_Graphics->ShowMiniMap();
-	}
-
-	//Control the Light color
-	if (m_Input->IsTPressed() == true)
-	{
-		m_Graphics->ChangeLightColor(0.1f, 5.0f, 1);
-	}
-
-	if (m_Input->IsYPressed() == true)
-	{
-		m_Graphics->ChangeLightColor(0.1f, 5.0f, 2);
-	}
-
-	if (m_Input->IsUPressed() == true)
-	{
-		m_Graphics->ChangeLightColor(0.1f, 5.0f, 3);
-	}
-
-	//Change the light to white
-	if (m_Input->IsBPressed() == true)
-	{
-		m_Graphics->ChangeLightColorBack();
-	}
-
-	//Change world Matrix
-	if (m_Input->IsXPressed() == true)
-	{
-		m_Graphics->ChangeWorldMatrix();
-	}
-
-	if (m_Input->IsSpacePressed() == true)
-	{
-		m_Graphics->GenerateTerrain();
-	}
+	
 	return true;
 }
 

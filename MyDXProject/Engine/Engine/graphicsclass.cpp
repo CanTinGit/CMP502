@@ -11,6 +11,7 @@ GraphicsClass::GraphicsClass()
 	m_Model = 0;
 	m_LightShader = 0;
 	m_Light = 0;
+	m_Input = 0;
 
 	m_RenderTexture = 0;
 	m_DebugWindow = 0;
@@ -26,7 +27,7 @@ GraphicsClass::GraphicsClass()
 	//Control Particle
 	isParticleRun = false;
 
-	isShowingFps = false;
+	isShowingFps = true;
 	isShowingMiniMap = false;
 	isChangedMatrix = false;
 
@@ -46,7 +47,7 @@ GraphicsClass::~GraphicsClass()
 }
 
 
-bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
+bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd, HINSTANCE hinstance)
 {
 	bool result;
 	D3DXMATRIX baseViewMatrix;
@@ -63,6 +64,21 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	if(!result)
 	{
 		MessageBox(hwnd, L"Could not initialize Direct3D.", L"Error", MB_OK);
+		return false;
+	}
+
+	//Create the Input object
+	m_Input = new InputClass;
+	if (!m_Input)
+	{
+		return false;
+	}
+
+	// Initialize the input object.
+	result = m_Input->Initialize(hinstance, hwnd, screenWidth, screenHeight);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the input object.", L"Error", MB_OK);
 		return false;
 	}
 
@@ -326,6 +342,13 @@ void GraphicsClass::Shutdown()
 		m_D3D = 0;
 	}
 
+	if (m_Input)
+	{
+		m_Input->Shutdown();
+		delete m_Input;
+		m_Input = 0;
+	}
+
 	return;
 }
 
@@ -377,6 +400,23 @@ bool GraphicsClass::Frame(int fps, int cpu, float frameTime)
 	// Render the graphics scene.
 	result = Render(rotation, delta);
 	if(!result)
+	{
+		return false;
+	}
+
+	result = m_Input->Frame();
+	if (!result)
+	{
+		return false;
+	}
+
+	if (m_Input->IsEscapePressed() == true)
+	{
+		return false;
+	}
+
+	result = HandleInput();
+	if (!result)
 	{
 		return false;
 	}
@@ -643,4 +683,59 @@ void GraphicsClass::ChangeWorldMatrix()
 void GraphicsClass::GenerateTerrain()
 {
 	m_Terrain->GenerateHeightMap(m_D3D->GetDevice(), true);
+}
+
+bool GraphicsClass::HandleInput()
+{
+	bool result;
+	//Check Input and update Camera position
+	if (m_Input->IsWPressed() == true)
+		CameraMove(0.3f, 2);
+	if (m_Input->IsSPressed() == true)
+		CameraMove(-0.3f, 2);
+
+	if (m_Input->IsAPressed() == true)
+		CameraMove(-0.3f, 1);
+
+	if (m_Input->IsDPressed() == true)
+		CameraMove(0.3f, 1);
+
+	//Check Input and control the Particle system
+	if (m_Input->IsPPressed() == true)
+		OpenOrCloseParticle();
+
+	//Check Input and control the Sound system
+	//if (m_Input->IsRPressed() == true)
+	//	m_Sound->PauseAndPlay();
+
+
+	//Check Input and control the FPS
+	if (m_Input->IsLPressed() == true)
+		OpendOrCloseFPS();
+
+	//Control the MiniMap
+	if (m_Input->IsMPressed() == true)
+		ShowMiniMap();
+
+	//Control the Light color
+	if (m_Input->IsTPressed() == true)
+		ChangeLightColor(0.1f, 5.0f, 1);
+
+	if (m_Input->IsYPressed() == true)
+		ChangeLightColor(0.1f, 5.0f, 2);
+
+	if (m_Input->IsUPressed() == true)
+		ChangeLightColor(0.1f, 5.0f, 3);
+
+	//Change the light to white
+	if (m_Input->IsBPressed() == true)
+		ChangeLightColorBack();
+
+	//Change world Matrix
+	if (m_Input->IsXPressed() == true)
+		ChangeWorldMatrix();
+
+	if (m_Input->IsSpacePressed() == true)
+		GenerateTerrain();
+	return true;
 }
