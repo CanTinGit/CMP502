@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SimplexNoise.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="cpuclass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
@@ -110,6 +111,7 @@
     <ClCompile Include="timeclass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SimplexNoise.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="cpuclass.h" />
     <ClInclude Include="d3dclass.h" />

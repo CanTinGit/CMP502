@@ -578,7 +578,7 @@ bool GraphicsClass::RenderScene(float delta)
 		D3DXMatrixRotationY(&worldMatrix, rotation);
 	}
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	m_Model->Render(m_D3D -> GetDeviceContext());
+	//m_Model->Render(m_D3D -> GetDeviceContext());
 
 	// Render the model using the light shader.
 	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
